@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    .todo-container {
+        max-width: 400px;
+        margin: 0 auto;
+        border: 2px solid purple;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+    .todo-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    .todo-item {
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+    }
+    .todo-item input[type="checkbox"] {
+        margin-right: 5px;
+    }
+    .checked {
+        text-decoration: line-through;
+    }
+    .delete-btn {
+        background-color: transparent;
+        color:black;
+        border: none;
+        
+        cursor: pointer;
+        margin-left: 10px;
+        font-size: 18px;
+        
+    }
+</style>
+</head>
+<body>
+
+<div class="todo-container">
+    <h2>To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="New task...">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="todo-list" class="todo-list">
+       
+    </ul>
+</div>
+
+<script>
+function addTask() {
+    var inputValue = document.getElementById("taskInput").value;
+    if (inputValue === '') {
+        alert("Please enter a task!");
+        return;
+    }
+    
+    var li = document.createElement("li");
+    li.className = "todo-item";
+    
+    var checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.addEventListener('change', function() {
+        if (this.checked) {
+            li.classList.add('checked');
+        } else {
+            li.classList.remove('checked');
+        }
+    });
+    
+    var textNode = document.createTextNode(inputValue);
+    
+    var deleteBtn = document.createElement("button");
+    deleteBtn.innerHTML = "&#x1F5D1;"; 
+    deleteBtn.className = "delete-btn";
+    deleteBtn.addEventListener('click', function() {
+        li.remove();
+    });
+    
+    li.appendChild(checkbox);
+    li.appendChild(textNode);
+    li.appendChild(deleteBtn);
+    
+    document.getElementById("todo-list").appendChild(li);
+    
+    document.getElementById("taskInput").value = "";
+}
+</script>
+
+</body>
+</html>
